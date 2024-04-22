@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "da-notes-d277c": {
+      "hosting": {
+        "da-keep": [
+          "da-notes-d277c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "da-notes-d277c"
+  }
+}

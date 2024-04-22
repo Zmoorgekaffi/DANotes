@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { Note } from '../interfaces/note.interface';
 import { NoteListService } from '../firebase-services/note-list.service'
 
@@ -11,17 +11,29 @@ export class AddNoteDialogComponent {
   @Output() addDialogClosed: EventEmitter<boolean> = new EventEmitter();
   title = "";
   description = "";
+  // noteService = inject(NoteListService);
 
-  constructor(private noteService: NoteListService){}
+  constructor(private noteService: NoteListService) { }
+// 
+
+  
 
   closeDialog() {
     this.title = "";
     this.description = "";
+    console.log(this.title);
+    console.log(this.description);
     this.addDialogClosed.emit(false);
   }
 
-  addNote(){
-    //beachte das closeDialog() zum Schluss kommt, denn es leert die Variablen
+  addNote() {
+    let notee: Note = {
+      type: "note",
+      title: this.title || 'no title',
+      content: this.description || 'no description',
+      marked: false
+    }
+    this.noteService.uploadDoc(notee);
     this.closeDialog();
   }
 }
