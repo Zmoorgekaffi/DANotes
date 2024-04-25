@@ -34,7 +34,17 @@ export class NoteComponent {
   }
 
   moveToTrash(){
-    this.note.type = 'trash';
+    if(this.note.id) {
+      // debugger;
+      // this.note.type = 'trash';
+      let noteID = this.note.id;
+      // delete this.note.id;
+      // this.noteService.uploadDoc(this.note, 'trash'); 
+      // this.note.type = 'note';     
+      this.noteService.delteNote(this.note, 'notes' ,noteID);
+    } else {
+      console.warn('note hasnt an ID');
+    }
   }
 
   moveToNotes(){
@@ -46,7 +56,7 @@ export class NoteComponent {
   }
 
   saveNote(){
-    
+    this.noteService.updateNote(this.note);
   }
 
 }

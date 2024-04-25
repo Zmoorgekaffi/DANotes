@@ -33,7 +33,7 @@ export class AddNoteDialogComponent {
       content: this.description || 'no description',
       marked: false
     }
-    this.noteService.uploadDoc(notee);
+    this.noteService.uploadDoc(notee, 'notes');
     this.closeDialog();
   }
 }
