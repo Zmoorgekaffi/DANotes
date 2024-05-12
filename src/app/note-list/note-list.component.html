@@ -25,6 +25,14 @@
        </div>
     </div>
     <div>
-        <app-note *ngFor="let note of this.noteService.normalNotes" [note]="note"></app-note>
+        @if(this.status == 'notes') {
+            @if(this.favFilter == 'all') {
+                <app-note *ngFor="let note of this.noteService.normalNotes" [note]="note"></app-note>
+            } @else {
+                <app-note *ngFor="let favNote of this.noteService.markedNotes" [note]="favNote"></app-note>
+            }
+        } @else if(this.status == 'trash') {
+            <app-note *ngFor="let trashNote of this.noteService.trashNotes" [note]="trashNote"></app-note>
+        } 
     </div>
 </div>

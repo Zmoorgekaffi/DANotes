@@ -16,6 +16,7 @@ export class NoteComponent {
 
   changeMarkedStatus(){
     this.note.marked = !this.note.marked;
+    this.noteService.updateNote(this.note);
   }
 
   deleteHovered(){
@@ -35,12 +36,11 @@ export class NoteComponent {
 
   moveToTrash(){
     if(this.note.id) {
-      // debugger;
-      // this.note.type = 'trash';
+      this.note.type = 'trash';
       let noteID = this.note.id;
-      // delete this.note.id;
-      // this.noteService.uploadDoc(this.note, 'trash'); 
-      // this.note.type = 'note';     
+      delete this.note.id;
+      this.noteService.uploadDoc(this.note, 'trash'); 
+      this.note.type = 'note';     
       this.noteService.delteNote(this.note, 'notes' ,noteID);
     } else {
       console.warn('note hasnt an ID');
@@ -48,11 +48,21 @@ export class NoteComponent {
   }
 
   moveToNotes(){
-    this.note.type = 'note';
+    if(this.note.id) {
+      this.note.type = 'note';
+      let noteID = this.note.id;
+      delete this.note.id;
+      this.noteService.uploadDoc(this.note, 'notes');
+      this.noteService.delteNote(this.note, 'trash', noteID);
+    }
   }
 
   deleteNote(){
-
+    if(this.note.id) {    
+      this.noteService.delteNote(this.note, 'trash' , this.note.id);
+    } else {
+      console.warn('note hasnt an ID');
+    }
   }
 
   saveNote(){
